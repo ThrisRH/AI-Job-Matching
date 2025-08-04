@@ -1,0 +1,12 @@
+$primary-color: #007bff;
+$secondary-color: #0088ff;
+.Box {
+  background-color: $secondary-color;
+  padding: 20px;
+  h1 {
+    color: $primary-color;
+  }
+  h2 {
+    color: #28a745;
+  }
+}
