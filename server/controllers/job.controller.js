@@ -19,3 +19,33 @@ exports.createJob = async (req, res) => {
     res.status(400).json({ message: `Đã xảy ra lỗi: ${error.message}` });
   }
 };
+
+// Các phương thức GET
+exports.getAllJobs = async (req, res) => {
+  try {
+    const jobs = await Job.find();
+    res.status(200).json(jobs);
+  } catch (error) {
+    res.status(500).json({ message: `Đã xảy ra lỗi: ${error.message}` });
+  }
+};
+
+exports.getJobByQuery = async (req, res) => {
+  try {
+    const { experienceLevel, jobType } = req.query;
+    let filter = {};
+
+    if (experienceLevel) {
+      filter.experienceLevel = { $in: experienceLevel.split(",") };
+    }
+
+    if (jobType) {
+      filter.jobType = { $in: jobType.split(",") };
+    }
+
+    const jobs = await Job.find(filter);
+    res.status(200).json({ message: "Danh sách công việc", jobs });
+  } catch (error) {
+    res.status(500).json({ message: `Đã xảy ra lỗi: ${error.message}` });
+  }
+};
